@@ -111,23 +111,102 @@
   btnYes.addEventListener('click', handleYes);
   btnNo.addEventListener('click',  handleNo);
 
-  // ---- Parallax on the floating shapes
-  const shapes = document.querySelectorAll('.shape');
-  let ticking  = false;
-  function applyParallax(scrollTop) {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      shapes.forEach((s, i) => {
-        const speed = 0.04 + (i % 3) * 0.02;
-        s.style.translate = `0 ${-scrollTop * speed}px`;
-      });
-      ticking = false;
-    });
+  // ---- Cursor-reactive background ----
+  // Shapes drift away from the cursor when it gets close, and a soft glow
+  // follows the mouse with a lag for a playful feel.
+  const shapes      = document.querySelectorAll('.shape');
+  const cursorGlow  = document.getElementById('cursorGlow');
+  const cursorDot   = document.getElementById('cursorDot');
+
+  const mouse  = { x: -9999, y: -9999 };       // raw mouse
+  const glow   = { x: -9999, y: -9999 };       // lerped — for the soft halo
+  const dot    = { x: -9999, y: -9999 };       // lerped tighter — for the dot
+  const REPEL_RADIUS = 220;                    // px — how close before shapes react
+  const REPEL_STRENGTH = 70;                   // max push distance in px
+
+  function onMouseMove(e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    if (cursorGlow && !cursorGlow.classList.contains('active')) {
+      cursorGlow.classList.add('active');
+      cursorDot.classList.add('active');
+    }
   }
-  pages.forEach(p => {
-    p.addEventListener('scroll', () => applyParallax(p.scrollTop), { passive: true });
+  function onMouseLeave() {
+    mouse.x = -9999;
+    mouse.y = -9999;
+    if (cursorGlow) {
+      cursorGlow.classList.remove('active');
+      cursorDot.classList.remove('active');
+    }
+  }
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseleave', onMouseLeave);
+
+  // Make the custom cursor swell over interactive elements
+  const interactiveSel = 'a, button, .chip, .project, .skill-group, .award-card, .lang, .edu-card, .contact-list a';
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(interactiveSel)) {
+      cursorGlow.classList.add('grow');
+      cursorDot.classList.add('grow');
+    }
   });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(interactiveSel)) {
+      cursorGlow.classList.remove('grow');
+      cursorDot.classList.remove('grow');
+    }
+  });
+
+  function loop() {
+    // Lerp the cursor follower (soft halo trails, dot follows tighter)
+    glow.x += (mouse.x - glow.x) * 0.18;
+    glow.y += (mouse.y - glow.y) * 0.18;
+    dot.x  += (mouse.x - dot.x)  * 0.45;
+    dot.y  += (mouse.y - dot.y)  * 0.45;
+
+    if (cursorGlow) {
+      cursorGlow.style.transform = `translate(${glow.x}px, ${glow.y}px) translate(-50%, -50%)`;
+      cursorDot.style.transform  = `translate(${dot.x}px,  ${dot.y}px) translate(-50%, -50%)`;
+    }
+
+    // Push each shape away from the cursor if it's close
+    shapes.forEach(shape => {
+      const rect = shape.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = cx - mouse.x;
+      const dy = cy - mouse.y;
+      const dist = Math.hypot(dx, dy);
+
+      if (dist < REPEL_RADIUS) {
+        const force = (1 - dist / REPEL_RADIUS);
+        const eased = force * force;       // soften near the edges
+        const angle = Math.atan2(dy, dx);
+        const ox = Math.cos(angle) * eased * REPEL_STRENGTH;
+        const oy = Math.sin(angle) * eased * REPEL_STRENGTH;
+        shape.style.translate = `${ox}px ${oy}px`;
+      } else {
+        // gently ease back to rest
+        const current = shape.style.translate;
+        if (current && current !== '0px 0px') {
+          const parts = current.match(/-?\d+(\.\d+)?/g);
+          if (parts && parts.length >= 2) {
+            const x = parseFloat(parts[0]) * 0.85;
+            const y = parseFloat(parts[1]) * 0.85;
+            if (Math.abs(x) < 0.3 && Math.abs(y) < 0.3) {
+              shape.style.translate = '';
+            } else {
+              shape.style.translate = `${x}px ${y}px`;
+            }
+          }
+        }
+      }
+    });
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
 
   // ---- Contact form
   const form     = document.getElementById('contactForm');

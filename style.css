@@ -54,6 +54,52 @@ strong { color: var(--ink); }
 
 button { font-family: inherit; }
 
+/* ---------- Custom cursor (decorative, doesn't replace native) ---------- */
+.cursor-glow,
+.cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity, width, height;
+  transition: opacity 250ms ease, width 250ms var(--ease-bouncy),
+              height 250ms var(--ease-bouncy), background 250ms ease;
+}
+.cursor-glow {
+  width: 46px;
+  height: 46px;
+  background: radial-gradient(circle, rgba(255, 107, 107, 0.35) 0%, rgba(255, 107, 107, 0.12) 50%, transparent 75%);
+  mix-blend-mode: multiply;
+}
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--coral);
+  box-shadow: 0 0 14px rgba(255, 107, 107, 0.6);
+}
+.cursor-glow.active,
+.cursor-dot.active { opacity: 1; }
+
+.cursor-glow.grow {
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, rgba(167, 139, 250, 0.12) 55%, transparent 75%);
+}
+.cursor-dot.grow {
+  width: 14px;
+  height: 14px;
+  background: var(--lavender);
+  box-shadow: 0 0 18px rgba(167, 139, 250, 0.7);
+}
+
+/* Don't render the custom cursor on touch / coarse-pointer devices */
+@media (pointer: coarse) {
+  .cursor-glow, .cursor-dot { display: none; }
+}
+
 /* ---------- App shell ---------- */
 .app {
   display: block;
