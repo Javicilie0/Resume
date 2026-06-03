@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aykan Nedzhibov — Software Engineering Student</title>
+  <meta name="description" content="Portfolio of Aykan Nedzhibov — Software Engineering student at the University of Ruse." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- ============== SIDEBAR (floating pill) ============== -->
+    <aside class="sidebar" aria-label="Primary navigation">
+      <nav class="side-nav">
+        <button class="nav-btn active" type="button" data-section="about" aria-label="About">
+          <svg class="nav-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M12 14c-4.42 0-8 2.69-8 6v2h16v-2c0-3.31-3.58-6-8-6z" />
+          </svg>
+          <span class="nav-tooltip">About</span>
+        </button>
+
+        <button class="nav-btn nav-locked" type="button" data-section="work" aria-label="Work — locked">
+          <svg class="nav-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z" />
+          </svg>
+          <span class="nav-lock" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z" />
+            </svg>
+          </span>
+          <span class="nav-tooltip">Work · locked</span>
+        </button>
+
+        <button class="nav-btn" type="button" data-section="contact" aria-label="Contact">
+          <svg class="nav-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+          </svg>
+          <span class="nav-tooltip">Contact</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- ============== CONTENT ============== -->
+    <main class="content">
+      <div class="shapes" aria-hidden="true">
+        <span class="shape s1"></span>
+        <span class="shape s2"></span>
+        <span class="shape s3"></span>
+        <span class="shape s4"></span>
+        <span class="shape s5"></span>
+        <span class="shape s6"></span>
+      </div>
+
+      <!-- ============== ABOUT ============== -->
+      <section class="page active" data-section="about">
+        <header class="page-head">
+          <span class="page-eyebrow">01 — who I am</span>
+          <h1 class="page-title">Hello<span class="dot">.</span></h1>
+        </header>
+
+        <p class="lead">
+          My name is <strong>Aykan Nedzhibov</strong>, and I am a Software Engineering student at the
+          University of Ruse, with experience in various technologies and a passion for problem-solving
+          and continuous learning.
+        </p>
+
+        <!-- Skills -->
+        <h2 class="block-title"><span class="block-num">01</span> Skills</h2>
+        <div class="skill-grid">
+          <div class="skill-group">
+            <h3>programming</h3>
+            <div class="chips">
+              <span class="chip">Python</span>
+              <span class="chip">C#</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">Git</span>
+              <span class="chip">GitHub</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h3>web</h3>
+            <div class="chips">
+              <span class="chip">React</span>
+              <span class="chip">Frontend</span>
+              <span class="chip">Backend</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h3>ai &amp; llm</h3>
+            <div class="chips">
+              <span class="chip">LangChain</span>
+              <span class="chip">LangSmith</span>
+              <span class="chip">RAG</span>
+              <span class="chip">AI Agents</span>
+              <span class="chip">Prompt Engineering</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h3>tools &amp; data</h3>
+            <div class="chips">
+              <span class="chip">Claude</span>
+              <span class="chip">ChatGPT</span>
+              <span class="chip">Ollama</span>
+              <span class="chip">Pinecone</span>
+              <span class="chip">Streamlit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Awards -->
+        <h2 class="block-title"><span class="block-num">02</span> Awards</h2>
+        <div class="awards-list">
+          <div class="award-card award-gold">
+            <span class="award-tag">crystal prize '26</span>
+            <h3>Best Paper — "Crystal Prize '26"</h3>
+            <p>The highest scientific honor at the X<sup>th</sup> Innovative Youth EXPO'26, awarded for the Evento Pulse paper.</p>
+          </div>
+          <div class="award-card">
+            <span class="award-tag">academic</span>
+            <h3>First Place — Student Scientific Session</h3>
+            <p>First place for our team's participation in the Student Scientific Session with Evento Pulse.</p>
+          </div>
+          <div class="award-card">
+            <span class="award-tag">hackathon</span>
+            <h3>Special Award — Ruse AI Hack</h3>
+            <p>48-hour AI hackathon organized by Startup Factory with the University of Ruse "Angel Kanchev".</p>
+          </div>
+        </div>
+
+        <!-- Credentials -->
+        <h2 class="block-title"><span class="block-num">03</span> Credentials</h2>
+        <div class="edu-card">
+          <div class="edu-year">2023<br /><span>—</span><br />2027</div>
+          <div class="edu-detail">
+            <h3>Bachelor in Software Engineering</h3>
+            <p class="edu-school">University of Ruse "Angel Kanchev"</p>
+            <p class="edu-note">Currently in my third year — graduating 2027.</p>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <h2 class="block-title"><span class="block-num">04</span> Languages</h2>
+        <div class="lang-list">
+          <div class="lang">
+            <span class="lang-name">Bulgarian</span>
+            <span class="lang-lvl">Native</span>
+            <div class="lang-bar"><span style="width:100%"></span></div>
+          </div>
+          <div class="lang">
+            <span class="lang-name">English</span>
+            <span class="lang-lvl">B2 — Upper Intermediate</span>
+            <div class="lang-bar"><span style="width:70%"></span></div>
+          </div>
+        </div>
+
+        <div class="page-foot">
+          <button class="cta primary" type="button" data-jump="work">Unlock my work →</button>
+        </div>
+      </section>
+
+      <!-- ============== WORK ============== -->
+      <section class="page" data-section="work">
+        <header class="page-head">
+          <span class="page-eyebrow">02 — what I've built</span>
+          <h1 class="page-title">Work<span class="dot">.</span></h1>
+        </header>
+
+        <p class="lead">
+          Four shipped projects — one award-winning team project, three solo builds in the AI / LLM space.
+        </p>
+
+        <article class="project featured">
+          <div class="project-head">
+            <h3>Evento Pulse</h3>
+            <span class="badge">award winner</span>
+            <span class="badge subtle">team project</span>
+          </div>
+          <p class="project-summary">
+            PWA built with <strong>Entity Framework</strong>, <strong>ASP.NET Identity</strong>,
+            <strong>OpenAI API</strong> and <strong>Google Maps API</strong> — an events discovery
+            platform with interactive map, filtering, and AI integration. Special Award at
+            Ruse AI Hackathon 2026.
+          </p>
+          <div class="project-foot">
+            <div class="tech">
+              <span>PWA</span><span>ASP.NET Identity</span><span>Entity Framework</span><span>OpenAI API</span><span>Google Maps API</span><span>React</span><span>TypeScript</span>
+            </div>
+            <a class="project-link" href="https://evento.business" target="_blank" rel="noopener">evento.business ↗</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>Recipe Helper</h3>
+            <span class="badge subtle">solo</span>
+          </div>
+          <p class="project-summary">
+            A RAG chatbot for cooking. It crawls recipe sites, embeds the content into a Pinecone vector
+            database, and answers natural-language questions with grounded recommendations instead of
+            hallucinated guesses.
+          </p>
+          <ul class="project-points">
+            <li>Custom crawler + content cleaning pipeline</li>
+            <li>Pinecone vector store with semantic retrieval</li>
+            <li>Streamlit UI for fast iteration on prompts and responses</li>
+          </ul>
+          <div class="project-foot">
+            <div class="tech"><span>Python</span><span>LangChain</span><span>Pinecone</span><span>Streamlit</span><span>Ollama</span></div>
+            <a class="project-link" href="https://github.com/Javicilie0/Recipe-helper" target="_blank" rel="noopener">github ↗</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>AI Resume Builder &amp; Job Matcher</h3>
+            <span class="badge subtle">in progress</span>
+          </div>
+          <p class="project-summary">
+            A tool that helps people sharpen their CV by holding it up against real job descriptions. An
+            LLM scores the match, flags gaps, and proposes specific edits — so the feedback is concrete
+            instead of vague.
+          </p>
+          <ul class="project-points">
+            <li>LLM-based match scoring against any job description</li>
+            <li>Improvement suggestions tied to specific CV sections</li>
+            <li>Streamlit interface for fast experimentation</li>
+          </ul>
+          <div class="project-foot">
+            <div class="tech"><span>Python</span><span>LangChain</span><span>Streamlit</span></div>
+            <a class="project-link" href="https://github.com/Javicilie0/AI-Resume-builder" target="_blank" rel="noopener">github ↗</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>LangChain Projects</h3>
+            <span class="badge subtle">collection</span>
+          </div>
+          <p class="project-summary">
+            A growing notebook of LangChain experiments — the place where I try things before they become
+            real projects.
+          </p>
+          <ul class="project-points">
+            <li>RAG pipelines with single and multi-source retrieval</li>
+            <li>A natural-language Todo agent</li>
+            <li>Assorted prompt patterns and tool-use sketches</li>
+          </ul>
+          <div class="project-foot">
+            <div class="tech"><span>Python</span><span>LangChain</span><span>Ollama</span><span>Vector DBs</span></div>
+            <a class="project-link" href="https://github.com/Javicilie0/langChain-Projects" target="_blank" rel="noopener">github ↗</a>
+          </div>
+        </article>
+
+        <div class="page-foot">
+          <button class="cta primary" type="button" data-jump="contact">Let's talk →</button>
+        </div>
+      </section>
+
+      <!-- ============== CONTACT ============== -->
+      <section class="page" data-section="contact">
+        <header class="page-head">
+          <span class="page-eyebrow">03 — let's connect</span>
+          <h1 class="page-title">Let's connect<span class="dot">.</span></h1>
+        </header>
+
+        <p class="lead">
+          Looking for <strong>trainee or junior developer roles</strong> and open to collaboration on
+          AI-leaning side projects. Drop me a note below — I'll get back within a day.
+        </p>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <label class="field">
+              <span class="field-label">Name</span>
+              <input type="text" name="name" required placeholder="Your full name" autocomplete="name" />
+            </label>
+            <label class="field">
+              <span class="field-label">Email</span>
+              <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field-label">Subject</span>
+            <input type="text" name="subject" required placeholder="What's this about?" />
+          </label>
+          <label class="field">
+            <span class="field-label">Message</span>
+            <textarea name="message" rows="6" required placeholder="Tell me about the role, project, or just say hi…"></textarea>
+          </label>
+          <div class="form-foot">
+            <button class="cta primary" type="submit">Send →</button>
+            <p class="form-note" id="formNote" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <div class="contact-quick">
+          <p class="contact-quick-label">or reach me directly</p>
+          <ul class="contact-list">
+            <li>
+              <a href="mailto:aykannedjibovv@gmail.com">
+                <span class="contact-key">email</span>
+                <span class="contact-val">aykannedjibovv@gmail.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+359895551772">
+                <span class="contact-key">phone</span>
+                <span class="contact-val">+359 895 551 772</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Javicilie0" target="_blank" rel="noopener">
+                <span class="contact-key">github</span>
+                <span class="contact-val">github.com/Javicilie0</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://evento.business" target="_blank" rel="noopener">
+                <span class="contact-key">team project</span>
+                <span class="contact-val">evento.business</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <p class="footer-note">Made by hand · Aykan Nedzhibov · 2026</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============== THE TRAP ============== -->
+  <div class="trap" id="trap" aria-hidden="true">
+    <div class="trap-card" role="dialog" aria-labelledby="trapQ">
+      <p class="trap-eyebrow">🔒 the work is locked</p>
+      <p class="trap-question" id="trapQ">You'll have to hire me to see my full potential.</p>
+      <p class="trap-sub">Deal?</p>
+      <div class="trap-buttons" id="trapButtons">
+        <button class="trap-btn btn-yes" id="btnYes" type="button">YES</button>
+        <button class="trap-btn btn-no" id="btnNo" type="button">NO</button>
+      </div>
+      <p class="trap-result" id="trapResult" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
