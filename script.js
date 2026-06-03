@@ -12,14 +12,31 @@
   let pendingNav = null;    // section the user was trying to reach
   let swapping   = false;
 
-  // ---- Sidebar navigation
-  function navigate(target) {
+  // ---- Sidebar navigation (hash-based routing)
+  const VALID  = ['about', 'work', 'contact'];
+  const TITLES = {
+    about:   'About · Aykan Nedzhibov',
+    work:    'Work · Aykan Nedzhibov',
+    contact: 'Contact · Aykan Nedzhibov',
+  };
+
+  function showSection(target) {
+    if (!VALID.includes(target)) target = 'about';
     navBtns.forEach(b => b.classList.toggle('active', b.dataset.section === target));
     pages.forEach(p => {
       const isActive = p.dataset.section === target;
       p.classList.toggle('active', isActive);
       if (isActive) p.scrollTop = 0;
     });
+    document.title = TITLES[target];
+  }
+
+  function setHash(target) {
+    if (location.hash !== `#${target}`) {
+      location.hash = target;          // triggers hashchange → showSection
+    } else {
+      showSection(target);             // hash unchanged, manually apply
+    }
   }
 
   function requestNavigate(target) {
@@ -29,7 +46,7 @@
       showTrap();
       return;
     }
-    navigate(target);
+    setHash(target);
   }
 
   navBtns.forEach(btn => {
@@ -38,6 +55,22 @@
   jumpBtns.forEach(btn => {
     btn.addEventListener('click', () => requestNavigate(btn.dataset.jump));
   });
+
+  // React to back/forward and direct hash edits
+  window.addEventListener('hashchange', () => {
+    const target = (location.hash || '#about').replace('#', '');
+    if (VALID.includes(target)) showSection(target);
+  });
+
+  // Initial route — honor the hash on first load, defaulting to About
+  (function initRoute() {
+    const hash = (location.hash || '').replace('#', '');
+    showSection('about');
+    if (!location.hash) history.replaceState(null, '', '#about');
+    if (hash === 'work' || hash === 'contact') {
+      setTimeout(() => requestNavigate(hash), 350);
+    }
+  })();
 
   // ---- The Trap
   function showTrap() {
@@ -62,7 +95,7 @@
       trap.classList.remove('active');
       trap.setAttribute('aria-hidden', 'true');
       if (pendingNav) {
-        navigate(pendingNav);
+        setHash(pendingNav);
         pendingNav = null;
       }
     }, 950);
