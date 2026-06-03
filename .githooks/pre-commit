@@ -1,0 +1,14 @@
+#!/bin/sh
+# Auto cache-bust: bump ?v=... in index.html on every commit so the browser
+# always fetches a fresh style.css and script.js after a deploy.
+
+NEW_V="$(date +%Y%m%d%H%M%S)"
+
+# Replace any ?v=... with the new timestamp in index.html
+sed -i.bak -E "s/\?v=[0-9a-zA-Z.]+/?v=${NEW_V}/g" index.html
+rm -f index.html.bak
+
+# Stage the bumped file so it's part of this commit
+git add index.html
+
+exit 0
