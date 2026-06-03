@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2026.06.03.4" />
+  <link rel="stylesheet" href="style.css?v=2026.06.03.5" />
 </head>
 <body>
 
@@ -279,7 +279,11 @@
           AI-leaning side projects. Drop me a note below — I'll get back within a day.
         </p>
 
-        <form class="contact-form" id="contactForm" novalidate>
+        <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="ed44c563-32de-4c7b-aebd-f4e0e0aff0ca" />
+          <input type="hidden" name="from_name" value="Portfolio Contact" />
+          <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
           <div class="form-row">
             <label class="field">
               <span class="field-label">Name</span>
@@ -299,7 +303,7 @@
             <textarea name="message" rows="6" required placeholder="Tell me about the role, project, or just say hi…"></textarea>
           </label>
           <div class="form-foot">
-            <button class="cta primary" type="submit">Send →</button>
+            <button class="cta primary" type="submit" id="formSubmit">Send →</button>
             <p class="form-note" id="formNote" aria-live="polite"></p>
           </div>
         </form>
@@ -354,6 +358,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=2026.06.03.4"></script>
+  <script src="script.js?v=2026.06.03.5"></script>
 </body>
 </html>

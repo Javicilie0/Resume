@@ -651,6 +651,24 @@ button { font-family: inherit; }
   min-height: 1.2em;
 }
 .form-note.error { color: var(--coral); }
+.form-note.success { color: var(--mint-dark); }
+
+/* Honeypot — invisible to humans, catnip to bots */
+.honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Disable state during submission */
+#formSubmit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 .contact-quick { margin-top: 24px; margin-bottom: 16px; }
 .contact-quick-label {

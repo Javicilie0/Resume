@@ -256,7 +256,17 @@
   }
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    const submitBtn = document.getElementById('formSubmit');
+    const ORIGINAL_BTN = submitBtn ? submitBtn.textContent : '';
+
+    function setNoteState(msg, kind) {
+      if (!formNote) return;
+      formNote.textContent = msg;
+      formNote.classList.remove('error', 'success');
+      if (kind) formNote.classList.add(kind);
+    }
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const fields = ['name', 'email', 'subject', 'message'];
@@ -275,28 +285,49 @@
 
       if (firstInvalid) {
         firstInvalid.focus();
-        setNote(firstInvalid.name === 'email' && values.email
+        setNoteState(firstInvalid.name === 'email' && values.email
           ? 'That email looks off — please check it.'
-          : 'Please fill in every field.', true);
+          : 'Please fill in every field.', 'error');
         return;
       }
 
-      // Build the mailto link and open the user's email client.
-      const subject = encodeURIComponent(values.subject);
-      const body = encodeURIComponent(
-        `Hi Aykan,\n\n${values.message}\n\n— ${values.name} (${values.email})`
-      );
-      const mailto = `mailto:aykannedjibovv@gmail.com?subject=${subject}&body=${body}`;
+      // Honeypot: if a bot ticked the hidden checkbox, silently bail.
+      if (form.elements.botcheck && form.elements.botcheck.checked) return;
 
-      setNote('Opening your email app…', false);
-      window.location.href = mailto;
+      // Submit to Web3Forms via fetch — keeps the user on the page.
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      setNoteState('Sending your message…', '');
+
+      const data = new FormData(form);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          setNoteState('Message sent ✓ — I\'ll get back within a day.', 'success');
+          form.reset();
+        } else {
+          setNoteState(json.message || 'Something went wrong. Try again or email me directly.', 'error');
+        }
+      } catch (err) {
+        setNoteState('Network error. Try again or email me directly.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = ORIGINAL_BTN;
+      }
     });
 
     // Clear invalid state as the user types
     form.addEventListener('input', (e) => {
-      if (e.target.classList.contains('invalid')) {
+      if (e.target.classList && e.target.classList.contains('invalid')) {
         e.target.classList.remove('invalid');
-        setNote('', false);
+        setNoteState('', '');
       }
     });
   }
